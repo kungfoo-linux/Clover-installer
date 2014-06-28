@@ -1,0 +1,100 @@
+#!/usr/bin/env python
+
+import os
+import subprocess
+import sys
+
+portage = "http://ftp.osuosl.org/pub/funtoo/funtoo-current/snapshots/portage-latest.tar.xz"
+boot = raw_input('Enter your boot partition again.. ')
+swap = raw_input('Enter your swap partition again.. ')
+root = raw_input('Enter your root partition again.. ')
+
+def portage():
+	#PORTAGE SETUP
+	#os.system('cd usr && wget %s' % portage)
+	#os.system('tar xJpf portage-latest.tar.xz && rm portage-latest.tar.xz')
+	#os.system('cd /usr/portage && git checkout funtoo.org')
+	os.system('emerge --sync')
+
+def time():
+	#TIMEZONE CONF
+	tz = raw_input('What is your timezone? ex. America/Los_Angeles ')
+	os.system('ln -sf /usr/share/zoneinfo/%s /etc/localtime' % tz)
+
+def fstab():
+	#FSTAB PARTITION CONF
+	#os.system("sed -i 's/\/dev\/sda1/" + boot + "/g' /etc/fstab")
+	#os.system("sed -i 's/\/dev\/sda2/" + swap + "/g' /etc/fstab")
+	#os.system("sed -i 's/\/dev\/sda4/" + root + "/g' /etc/fstab")
+	os.system('nano /etc/fstab')
+
+
+def hostname():
+	#HOSTNAME CONF
+	hostname = raw_input('What do you want your computer to be called? ')
+	#os.system("sed 's/hostame=\".*\"/hostname=\"" + hostname + "\"/g' /etc/conf.d/hostname") doesnt work?
+
+def kernel():
+	#KERNEL
+	kernel = raw_input('Do you want to use the Vanilla or Gentoo kernel? vanilla/gentoo ')
+	if kernel == "vanilla":
+		os.system('emerge -g vanilla-sources genkernel')
+	else:
+		os.system('emerge -g gentoo-sources genkernel')
+	print '** Compiling Kernel **'
+	os.system('genkernel all')
+	#os.system('mv /boot/*kernel* /boot/clover-kernel')
+	#os.system('mv /boot/*init* /boot/clover-initrd')
+	print '** Completed **'
+
+def boot():
+	#BOOT SETUP/CONF
+	os.system('emerge boot-update')
+	os.system('grub-install --no-floppy /dev/sda')
+	os.system('cp /boot.conf /etc/boot.conf')
+	os.system('boot-update')
+
+
+def network():
+	#NETWORK SETUP
+	net = raw_input('Are you using wifi or wired connection? wifi/wired ')
+	if net == 'wifi':
+		os.system('emerge linux-firmware networkmanager')
+		os.system('rc-update add NetworkManager default')
+	else:
+		os.system('rc-update add dhcpcd default')
+
+def gui():
+	#GUI SETUP
+	gpu = raw_input('What graphics driver is expected? nouveau/nvidia/radeon/fglrx/vbox/fbdev/vesa/vmware ')
+	os.system('echo "VIDEO_CARDS=\"%s\"" >> /etc/portage/make.conf' % gpu)
+	os.system('echo "mate-base/mate -bluetooth -themes -extras" >> /etc/portage/package.use')
+	os.system('echo "x11-misc/lightdm gtk -introspection -kde -qt4" >> /etc/portage/package.use')
+	os.system('echo "sys-auth/consolekit policykit" >> /etc/portage/package.use')
+	os.system('emerge xorg-server mate openbox lightdm') #introspection and gdu is needed for mate
+	os.system('rc-update add xdm default')	
+	os.system("sed -i 's/DISPLAYMANAGER=\".*\"/DISPLAYMANAGER=\"lightdm\"/g' /etc/conf.d/xdm")
+
+def user():
+	#USER/PASS SETUP
+	os.system('clear')
+	print 
+	os.system('passwd')
+	user = raw_input('What will your username be? ')
+	os.system("useradd -m -g users -G audio,video,cdrom,wheel,portage %s" % user)
+	os.system('passwd %s' % user)
+	
+
+def main():
+	portage()
+	time()
+	fstab()
+	hostname()
+	kernel()
+	boot()
+	network()
+	gui()
+	user()
+
+if __name__ == '__main__':
+	main()
