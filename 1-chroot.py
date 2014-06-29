@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-import subprocess
 import sys
 
 portage = "http://ftp.osuosl.org/pub/funtoo/funtoo-current/snapshots/portage-latest.tar.xz"
