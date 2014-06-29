@@ -78,7 +78,7 @@ def gui():
 	make = raw_input('Would you like to view and edit the make.conf before compiling the gui realated libraries? y/n ')
 	if make == 'y' or 'yes':
 		os.system('nano /etc/make.conf')
-	os.system('emerge xorg-server mate openbox lightdm')
+	os.system('emerge xorg-server mate lightdm')
 	os.system('rc-update add xdm default') #xdm or lightdm???	
 	os.system("sed -i 's/DISPLAYMANAGER=\".*\"/DISPLAYMANAGER=\"lightdm\"/g' /etc/conf.d/xdm")
 
