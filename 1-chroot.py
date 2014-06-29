@@ -56,7 +56,7 @@ def boot():
 	#BOOT SETUP/CONF
 	os.system('emerge boot-update')
 	os.system('grub-install --no-floppy /dev/sda')
-	os.system('cp /boot.conf /etc/boot.conf')
+	os.system('mv /boot.conf /etc/boot.conf')
 	os.system('boot-update')
 
 
