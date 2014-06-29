@@ -80,7 +80,7 @@ def gui():
 def user():
 	#USER/PASS SETUP
 	os.system('clear')
-	print 
+	print 'What will the root password be?'
 	os.system('passwd')
 	user = raw_input('What will your username be? ')
 	os.system("useradd -m -g users -G audio,video,cdrom,wheel,portage %s" % user)
