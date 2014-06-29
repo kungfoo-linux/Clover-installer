@@ -27,9 +27,6 @@ def time():
 
 def fstab():
 	#FSTAB PARTITION CONF
-	#os.system("sed -i 's/\/dev\/sda1/" + boot + "/g' /etc/fstab")
-	#os.system("sed -i 's/\/dev\/sda2/" + swap + "/g' /etc/fstab")
-	#os.system("sed -i 's/\/dev\/sda4/" + root + "/g' /etc/fstab")
 	cont = raw_input('Press enter to edit your fstab.. ')
 	os.system('nano /etc/fstab')
 
