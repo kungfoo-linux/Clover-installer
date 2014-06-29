@@ -5,9 +5,6 @@ import subprocess
 import sys
 
 portage = "http://ftp.osuosl.org/pub/funtoo/funtoo-current/snapshots/portage-latest.tar.xz"
-#boot = raw_input('Enter your boot partition again.. ')
-#swap = raw_input('Enter your swap partition again.. ')
-#root = raw_input('Enter your root partition again.. ')
 
 def portage():
 	#PORTAGE SETUP
