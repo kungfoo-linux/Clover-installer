@@ -37,11 +37,17 @@ def hostname():
 
 def kernel():
 	#KERNEL
-	kernel = raw_input('Do you want to use the Vanilla or Gentoo kernel? vanilla/gentoo ')
-	if kernel == "vanilla":
-		os.system('emerge -g vanilla-sources genkernel')
-	else:
+	kernel = raw_input('What kernel do you wish to use? vanilla/gentoo/pf/ck/tuxonice ')
+	if kernel == "gentoo":
 		os.system('emerge -g gentoo-sources genkernel')
+	elif kernel == "pf":
+		os.system('emerge -g pf-sources genkernel')
+	elif kernel == "ck":
+		os.system('emerge -g ck-sources genkernel')
+	elif kernel == "tuxonice":
+		os.system('emerge -g tuxonice-sources genkernel')
+	else:
+		os.system('emerge -g vanilla-sources genkernel')
 	print '** Compiling Kernel **'
 	os.system('genkernel all')
 	print '** Completed **'
