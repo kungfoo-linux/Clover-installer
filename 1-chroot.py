@@ -83,12 +83,10 @@ def gui():
 	os.system("sed -i 's/DISPLAYMANAGER=\".*\"/DISPLAYMANAGER=\"lightdm\"/g' /etc/conf.d/xdm")
 
 def theme():
-	#need command to download theme and icon here
+	#os.system('emerge gtk-theme?')
+	os.system('emerge mate-icon-theme-faenza')
 	os.system('gsettings set org.mate.interface gtk-theme \'what ever the fuck the theme is\'')
 	os.system('gsettings set org.mate.interface icon-theme \'what ever the fuck the icons are\'')
-	os.system('')
-	os.system('')
-	os.system('')
 
 def user():
 	#USER/PASS SETUP
