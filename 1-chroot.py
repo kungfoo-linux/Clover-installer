@@ -74,12 +74,21 @@ def gui():
 	os.system('echo "mate-base/mate -bluetooth -themes -extras" >> /etc/portage/package.use')
 	os.system('echo "x11-misc/lightdm gtk -introspection -kde -qt4" >> /etc/portage/package.use')
 	os.system('echo "sys-auth/consolekit policykit" >> /etc/portage/package.use')
+	#ASK FOR EDITING OF PORTAGE BEFORE COMPILE
 	make = raw_input('Would you like to view and edit the make.conf before compiling the gui realated libraries? y/n ')
 	if make == 'y' or 'yes':
 		os.system('nano /etc/make.conf')
 	os.system('emerge xorg-server mate openbox lightdm')
-	os.system('rc-update add xdm default')	
+	os.system('rc-update add xdm default') #xdm or lightdm???	
 	os.system("sed -i 's/DISPLAYMANAGER=\".*\"/DISPLAYMANAGER=\"lightdm\"/g' /etc/conf.d/xdm")
+
+def theme():
+	#need command to download theme and icon here
+	os.system('gsettings set org.mate.interface gtk-theme \'what ever the fuck the theme is\'')
+	os.system('gsettings set org.mate.interface icon-theme \'what ever the fuck the icons are\'')
+	os.system('')
+	os.system('')
+	os.system('')
 
 def user():
 	#USER/PASS SETUP
@@ -100,6 +109,7 @@ def main():
 	boot()
 	network()
 	gui()
+	theme()
 	user()
 
 if __name__ == '__main__':
