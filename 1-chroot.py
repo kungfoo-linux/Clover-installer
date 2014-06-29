@@ -43,8 +43,6 @@ def kernel():
 		os.system('emerge -g gentoo-sources genkernel')
 	print '** Compiling Kernel **'
 	os.system('genkernel all')
-	#os.system('mv /boot/*kernel* /boot/clover-kernel')
-	#os.system('mv /boot/*init* /boot/clover-initrd')
 	print '** Completed **'
 
 def boot():
