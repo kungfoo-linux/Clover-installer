@@ -36,7 +36,7 @@ def directory():
 	os.system('mount %s %s' % (root, maindir))
 	os.system('mkdir /mnt/clover/boot')
 	os.system('mount %s /mnt/clover/boot' % boot )
-	print '** Finished creating directories **'
+	print '** Finished **'
 
 def stage3():
 	print '** Grabbing stage3 **'
@@ -47,25 +47,33 @@ def stage3():
 	else:
 		os.system('wget -q %s' % stage332)
 	print '** Finished **'
+	print '** Extracting stage3 **'
 	os.system('tar xJpf stage3-latest.tar.xz -C %s' % maindir)
+	print '** Finished **'
 
 def edit():
+	print '** Copying needed files **'
 	os.system('cp ./1-chroot.py %s' % maindir)
 	os.system('cp ./boot.conf %s' % maindir)
+	print '** Finished **'
 
 def chroot():
 	#CHROOT SETUP
 	os.chdir(maindir)
+	print '** Mounting **'
 	os.system('mount --bind /dev dev/')
 	os.system('mount --bind /sys sys/')
 	os.system('mount --bind /proc proc/')
 	os.system('cp /etc/resolv.conf etc/')
+	print '** Finished **'
 	os.system('clear')
 	print 'Now run 1-chroot.py to continue the installation process'
 	os.system('chroot %s /bin/bash' % maindir)
 
 def umount():
+	print '** Unmounting **'
 	os.system('umount /mnt/clover/{proc,sys,dev,boot} /mnt/clover')
+	print '** Finished **'
 
 def main():
 	fs()
