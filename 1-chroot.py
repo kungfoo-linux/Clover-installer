@@ -15,6 +15,10 @@ def portage():
 	#os.system('tar xJpf portage-latest.tar.xz && rm portage-latest.tar.xz')
 	#os.system('cd /usr/portage && git checkout funtoo.org')
 	os.system('emerge --sync')
+	basecompile = raw_input('Would you like to recompile the base system upto date? (recommended) y/n: ')
+	if basecompile == 'y' or 'yes':
+		os.system('emerge -uDN world')
+	
 
 def time():
 	#TIMEZONE CONF
@@ -37,7 +41,7 @@ def hostname():
 
 def kernel():
 	#KERNEL
-	kernel = raw_input('What kernel do you wish to use? vanilla/gentoo/pf/ck/tuxonice ')
+	kernel = raw_input('What kernel do you wish to use? vanilla/gentoo/pf/ck/tuxonice :')
 	if kernel == "gentoo":
 		os.system('emerge -g gentoo-sources genkernel')
 	elif kernel == "pf":
