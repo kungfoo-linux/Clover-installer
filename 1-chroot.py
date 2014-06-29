@@ -33,8 +33,8 @@ def fstab():
 
 def hostname():
 	#HOSTNAME CONF
-	hostname = raw_input('What do you want your computer to be called? ')
-	#os.system("sed 's/hostame=\".*\"/hostname=\"" + hostname + "\"/g' /etc/conf.d/hostname") doesnt work?
+	cont = raw_input('Press enter to edit your hostname.. ')
+	os.system('nano /etc/conf.d/hostname')
 
 def kernel():
 	#KERNEL
