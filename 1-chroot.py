@@ -70,10 +70,11 @@ def gui():
 	#GUI SETUP
 	gpu = raw_input('What graphics driver is expected? nouveau/nvidia/radeon/fglrx/vbox/fbdev/vesa/vmware ')
 	os.system('echo "VIDEO_CARDS=\"%s\"" >> /etc/portage/make.conf' % gpu)
+	os.system('echo "USE=\"alsa gdu gtk introspection jpeg openal png sdl svg -mono -gnome -kde -qt3 -qt4\"" >> /etc/portage/make.conf')
 	os.system('echo "mate-base/mate -bluetooth -themes -extras" >> /etc/portage/package.use')
 	os.system('echo "x11-misc/lightdm gtk -introspection -kde -qt4" >> /etc/portage/package.use')
 	os.system('echo "sys-auth/consolekit policykit" >> /etc/portage/package.use')
-	os.system('emerge xorg-server mate openbox lightdm') #introspection and gdu is needed for mate
+	os.system('emerge xorg-server mate openbox lightdm')
 	os.system('rc-update add xdm default')	
 	os.system("sed -i 's/DISPLAYMANAGER=\".*\"/DISPLAYMANAGER=\"lightdm\"/g' /etc/conf.d/xdm")
 
