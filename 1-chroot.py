@@ -20,7 +20,7 @@ def portage():
 	os.system('echo "mate-base/mate -bluetooth -themes -extras" >> /etc/portage/package.use')
 	os.system('echo "x11-misc/lightdm gtk introspection -kde -qt4" >> /etc/portage/package.use')
 	os.system('echo "sys-auth/consolekit policykit" >> /etc/portage/package.use')
-	os.system('mv ./package.accept_keywords /etc/portage/')#Used to update Mate to 1.8
+	#os.system('mv ./package.accept_keywords /etc/portage/')#Used to update Mate to 1.8
 	basecompile = raw_input('Would you like to recompile the base system upto date? (recommended) y/n: ')
 	if basecompile == 'y' or 'yes':
 		os.system('emerge -uDN world')	
