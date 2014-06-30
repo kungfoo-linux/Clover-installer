@@ -56,6 +56,7 @@ def edit():
 	os.system('cp ./1-chroot.py %s' % maindir)
 	os.system('cp ./boot.conf %s' % maindir)
 	os.system('cp ./package.accept_keywords %s' % maindir)
+	#os.system('cp ./clover.xml %s' % maindir)
 	print '** Finished **'
 
 def chroot():
