@@ -15,6 +15,12 @@ def portage():
 	#os.system('tar xJpf portage-latest.tar.xz && rm portage-latest.tar.xz')
 	#os.system('cd /usr/portage && git checkout funtoo.org')
 	os.system('emerge --sync')
+	#Edit make.conf
+	os.system('echo "USE=\"alsa gdu git gtk introspection jpeg openal png sdl subversion svg -mono -gnome -kde -qt3 -qt4\"" >> /etc/portage/make.conf')
+	os.system('echo "mate-base/mate -bluetooth -themes -extras" >> /etc/portage/package.use')
+	os.system('echo "x11-misc/lightdm gtk introspection -kde -qt4" >> /etc/portage/package.use')
+	os.system('echo "sys-auth/consolekit policykit" >> /etc/portage/package.use')
+	os.system('mv ./package.accept_keywords /etc/portage/')#Used to update Mate to 1.8
 	basecompile = raw_input('Would you like to recompile the base system upto date? (recommended) y/n: ')
 	if basecompile == 'y' or 'yes':
 		os.system('emerge -uDN world')	
@@ -71,11 +77,6 @@ def gui():
 	#GUI SETUP
 	gpu = raw_input('What graphics driver is expected? nouveau/nvidia/radeon/fglrx/vbox/fbdev/vesa/vmware ')
 	os.system('echo "VIDEO_CARDS=\"%s\"" >> /etc/portage/make.conf' % gpu)
-	os.system('echo "USE=\"alsa gdu git gtk introspection jpeg openal png sdl subversion svg -mono -gnome -kde -qt3 -qt4\"" >> /etc/portage/make.conf')
-	os.system('echo "mate-base/mate -bluetooth -themes -extras" >> /etc/portage/package.use')
-	os.system('echo "x11-misc/lightdm gtk introspection -kde -qt4" >> /etc/portage/package.use')
-	os.system('echo "sys-auth/consolekit policykit" >> /etc/portage/package.use')
-	os.system('mv ./package.accept_keywords /etc/portage/')#Used to update Mate to 1.8
 	#ASK FOR EDITING OF PORTAGE BEFORE COMPILE
 	make = raw_input('Would you like to view and edit the make.conf before compiling the gui realated libraries? y/n ')
 	if make == 'y' or 'yes':
