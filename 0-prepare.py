@@ -38,7 +38,16 @@ def directory():
 	os.system('mount %s /mnt/clover/boot' % boot )
 	print '** Finished **'
 
+def edit():
+	print '** Copying needed files **'
+	os.system('cp ./1-chroot.py %s' % maindir)
+	os.system('cp ./boot.conf %s' % maindir)
+	os.system('cp ./package.accept_keywords %s' % maindir)
+	#os.system('cp ./clover.xml %s' % maindir)
+	print '** Finished **'
+
 def stage3():
+	os.chdir(maindir)
 	print '** Grabbing stage3 **'
 	if arch == 'i7-64-bit':
 		os.system('wget -q %s' % stage3i7)
@@ -48,15 +57,7 @@ def stage3():
 		os.system('wget -q %s' % stage332)
 	print '** Finished **'
 	print '** Extracting stage3 **'
-	os.system('tar xJpf stage3-latest.tar.xz -C %s' % maindir)
-	print '** Finished **'
-
-def edit():
-	print '** Copying needed files **'
-	os.system('cp ./1-chroot.py %s' % maindir)
-	os.system('cp ./boot.conf %s' % maindir)
-	os.system('cp ./package.accept_keywords %s' % maindir)
-	#os.system('cp ./clover.xml %s' % maindir)
+	os.system('tar xJpf stage3-latest.tar.xz')
 	print '** Finished **'
 
 def chroot():
@@ -80,8 +81,8 @@ def umount():
 def main():
 	fs()
 	directory()
-	stage3()
 	edit()
+	stage3()
 	chroot()
 	umount()				
 
