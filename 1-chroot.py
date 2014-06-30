@@ -81,7 +81,8 @@ def gui():
 	if make == 'y' or 'yes':
 		os.system('nano /etc/make.conf')
 	os.system('emerge xorg-server mate lightdm')
-	os.system('rc-update add xdm default') #xdm or lightdm???	
+	os.system('rc-update add dbus default')
+	os.system('rc-update add xdm default')	
 	os.system("sed -i 's/DISPLAYMANAGER=\".*\"/DISPLAYMANAGER=\"lightdm\"/g' /etc/conf.d/xdm")
 
 def theme():
