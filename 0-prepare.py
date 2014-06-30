@@ -19,9 +19,9 @@ maindir = '/mnt/clover'
 boot = raw_input('What is your boot partition? ')
 swap = raw_input('What is your swap partition? ')
 root = raw_input('What is your root partition? ')
-stage332 = "http://ftp.osuosl.org/pub/funtoo/funtoo-current/x86-32bit/i686/stage3-latest.tar.xz"
-stage364 = "http://ftp.osuosl.org/pub/funtoo/funtoo-current/x86-64bit/generic_64/stage3-latest.tar.xz"
-stage3i7 = "http://ftp.osuosl.org/pub/funtoo/funtoo-current/x86-64bit/corei7/stage3-latest.tar.xz"
+stage332 = "http://ftp.heanet.ie/mirrors/funtoo/funtoo-current/x86-32bit/generic_32/stage3-latest.tar.xz"
+stage364 = "http://ftp.heanet.ie/mirrors/funtoo/funtoo-current/x86-64bit/generic_64/stage3-latest.tar.xz"
+stage3i7 = "http://ftp.heanet.ie/mirrors/funtoo/funtoo-current/x86-64bit/corei7/stage3-latest.tar.xz"
 arch = raw_input('What architecture are you using? 32-bit/64-bit/i7-64-bit: ')
 
 def fs():
