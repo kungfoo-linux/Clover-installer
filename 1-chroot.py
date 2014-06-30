@@ -5,6 +5,10 @@ import sys
 
 portage = "http://ftp.osuosl.org/pub/funtoo/funtoo-current/snapshots/portage-latest.tar.xz"
 
+def startup():
+	os.system('export PS1=\"(chroot) $PS1\"')
+	os.system('env-update')
+
 def portage():
 	#PORTAGE SETUP
 	#os.system('cd usr && wget %s' % portage)
@@ -13,8 +17,7 @@ def portage():
 	os.system('emerge --sync')
 	basecompile = raw_input('Would you like to recompile the base system upto date? (recommended) y/n: ')
 	if basecompile == 'y' or 'yes':
-		os.system('emerge -uDN world')
-	
+		os.system('emerge -uDN world')	
 
 def time():
 	#TIMEZONE CONF
@@ -25,7 +28,6 @@ def fstab():
 	#FSTAB PARTITION CONF
 	cont = raw_input('Press enter to edit your fstab.. ')
 	os.system('nano /etc/fstab')
-
 
 def hostname():
 	#HOSTNAME CONF
@@ -55,7 +57,6 @@ def boot():
 	os.system('grub-install --no-floppy /dev/sda')
 	os.system('mv /boot.conf /etc/boot.conf')
 	os.system('boot-update')
-
 
 def network():
 	#NETWORK SETUP
@@ -100,6 +101,7 @@ def user():
 	
 
 def main():
+	startup()
 	portage()
 	time()
 	fstab()
