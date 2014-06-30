@@ -57,7 +57,7 @@ def stage3():
 		os.system('wget -q %s' % stage332)
 	print '** Finished **'
 	print '** Extracting stage3 **'
-	os.system('tar xJpf stage3-latest.tar.xz')
+	os.system('tar xpvf stage3-latest.tar.xz')
 	print '** Finished **'
 
 def chroot():
