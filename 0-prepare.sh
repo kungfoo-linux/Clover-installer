@@ -44,7 +44,7 @@ echo "** Finished **"
 
 #Edit
 echo "** Copying needed files **"
-cp ./1-chroot.py $maindir
+cp ./1-chroot.sh $maindir
 cp ./boot.conf $maindir
 cp ./package.accept_keywords $maindir
 #cp ./clover.xml $maindir
