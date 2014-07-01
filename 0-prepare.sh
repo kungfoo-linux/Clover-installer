@@ -2,9 +2,10 @@
 
 #########################
 maindir=/mnt/clover
-stage332=http://ftp.heanet.ie/mirrors/funtoo/funtoo-current/x86-32bit/generic_32/stage3-latest.tar.xz
-stage364=http://ftp.heanet.ie/mirrors/funtoo/funtoo-current/x86-64bit/generic_64/stage3-latest.tar.xz
-stage3i7=http://ftp.heanet.ie/mirrors/funtoo/funtoo-current/x86-64bit/corei7/stage3-latest.tar.xz
+i686=http://ftp.iinet.net.au/linux/Gentoo/releases/x86/autobuilds/current-stage3-i686/stage3-i686-20140603.tar.bz2
+i686uclibc=http://ftp.iinet.net.au/linux/Gentoo/releases/x86/autobuilds/current-stage3-i686-uclibc-vanilla/stage3-i686-uclibc-vanilla-20140605.tar.bz2
+amd64=http://ftp.iinet.net.au/linux/Gentoo/releases/amd64/autobuilds/current-stage3-amd64/stage3-amd64-20140619.tar.bz2
+amd64uclibc=http://ftp.iinet.net.au/linux/Gentoo/releases/amd64/autobuilds/current-stage3-amd64-uclibc-vanilla/stage3-amd64-uclibc-vanilla-20140605.tar.bz2
 #########################
 
 clear
@@ -25,7 +26,7 @@ echo "What is your root partition? \c"
 read root
 clear
 
-echo "What architecture are you using? 32-bit/64-bit/i7-64-bit: \c"
+echo "What architecture are you using? i686/i686-uclibc/amd64/amd64-uclibc: \c"
 read arch
 
 #Format
@@ -54,15 +55,18 @@ echo "** Finished **"
 cd $maindir
 echo "** Grabbing stage3 **"
 
-if [ "$arch" == "i7-64-bit" ]; then
-	wget -q $stage3i7
-elif [ "$arch" == "64-bit" ]; then
-	wget -q $stage364
+if [ "$arch" == "amd64-uclibc" ]; then
+	wget -q $amd64uclibc
+elif [ "$arch" == "amd64" ]; then
+	wget -q $amd64
+elif [ "$arch" == "i686-uclibc" ]; then
+	wget -q $i686uclibc
 else
-	wget -q $stage332
+	wget -q $i686
 fi
 echo "** Extracting stage3 **"
-tar xpvf stage3-latest.tar.xz
+tar xvjpf stage3*
+tar xvjpf current-stage3*
 echo "** Finished **"
 
 #Chroot
@@ -70,7 +74,7 @@ echo "** Mounting **"
 mount --bind /dev dev/
 mount --bind /sys sys/
 mount --bind /proc proc/
-cp /etc/resolv.conf etc/
+cp -L /etc/resolv.conf etc/
 echo "** Finished **"
 clear
 echo "Now run 1-chroot.py to continue the installation process"

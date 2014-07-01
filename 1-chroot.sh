@@ -1,16 +1,18 @@
 #!/bin/bash
 
-#portage=http://ftp.osuosl.org/pub/funtoo/funtoo-current/snapshots/portage-latest.tar.xz
-
 #Startup
 export PS1="(chroot) $PS1"
 env-update
 
-#Portage setup
-#cd usr && wget -q $portage
-#tar xpvf portage-latest.tar.xz && rm portage-latest.tar.xz
-#cd /usr/portage && git checkout funtoo.org
+echo "SYNC=\"rsync://rsync.au.gentoo.org\"" >> /etc/portage/make.conf
+echo "GENTOO_MIRRORS=\"ftp://ftp.iinet.com.au/linux/Gentoo ftp://ftp.swin.edu.au/gentoo\"" >> /etc/portage/make.conf
+emerge-webrsync
+emerge --oneshot portage
 emerge --sync
+emerge layman
+layman -L
+layman -a funtoo-overlay
+echo "source /var/lib/layman/make.conf" >> /etc/portage/make.conf
 echo "Would you like to recompile the base system upto date? y/n: \c"
 read basecompile
 if [ "$basecompile" == "y" ] || [ "$basecompile" == "yes" ]; then
@@ -20,7 +22,7 @@ fi
 #Time
 echo "What is your timezone? ex. America/Los_Angeles \c"
 read tz
-ln -sf /usr/share/zoneinfo/$tz /etc/localtime
+echo "$tz" > /etc/timezone
 
 #Fstab
 echo "Press enter to edit your fstab.. "
@@ -51,7 +53,7 @@ genkernel all
 echo "** Completed **"
 
 #Boot
-emerge boot-update
+emerge -av sys-boot/boot-update
 grub-install --no-floppy /dev/sda
 mv /boot.conf /etc/boot.conf
 boot-update
