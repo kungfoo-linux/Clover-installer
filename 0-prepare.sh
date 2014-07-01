@@ -70,7 +70,7 @@ echo "** Mounting **"
 mount --bind /dev dev/
 mount --bind /sys sys/
 mount --bind /proc proc/
-cp /etc/resolv.conf etc/
+cp -L /etc/resolv.conf etc/
 echo "** Finished **"
 clear
 echo "Now run 1-chroot.py to continue the installation process"
