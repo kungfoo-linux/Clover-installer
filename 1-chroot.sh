@@ -4,7 +4,7 @@
 export PS1="(chroot) $PS1"
 env-update
 
-echo "SYNC=\"rsync://rsync.au.gentoo.org\"" >> /etc/portage/make.conf
+echo "SYNC=\"rsync://rsync.au.gentoo.org/gentoo-portage\"" >> /etc/portage/make.conf
 echo "GENTOO_MIRRORS=\"ftp://ftp.iinet.com.au/linux/Gentoo ftp://ftp.swin.edu.au/gentoo\"" >> /etc/portage/make.conf
 emerge-webrsync
 emerge --oneshot portage
