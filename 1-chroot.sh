@@ -14,6 +14,14 @@ rm portage-latest.tar.xz
 cd /usr/portage
 git checkout funtoo.org
 emerge --sync
+cd ../..
+
+echo "USE=\"alsa gdu git gtk introspection jpeg openal png sdl subversion svg x264 X -branding -mono -gnome -kde -qt3 -qt4\"" >> /etc/portage/make.conf
+echo "mate-base/mate -bluetooth -themes -extras" >> /etc/portage/package.use
+echo "x11-misc/lightdm gtk introspection -kde -qt4" >> /etc/portage/package.use
+echo "sys-auth/consolekit policykit" >> /etc/portage/package.use
+mv ./package.accept_keywords /etc/portage/ #Used to update Mate to 1.8
+
 echo "Would you like to recompile the base system upto date? y/n: \c"
 read basecompile
 if [ "$basecompile" == "y" ] || [ "$basecompile" == "yes" ]; then
@@ -73,11 +81,6 @@ fi
 echo "What graphics driver is expected? nouveau/nvidia/radeon/fglrx/vbox/fbdev/vesa/vmware \c"
 read gpu
 echo "VIDEO_CARDS=\"$gpu\"" >> /etc/portage/make.conf
-echo "USE=\"alsa gdu git gtk introspection jpeg openal png sdl subversion svg x264 X -branding -mono -gnome -kde -qt3 -qt4\"" >> /etc/portage/make.conf
-echo "mate-base/mate -bluetooth -themes -extras" >> /etc/portage/package.use
-echo "x11-misc/lightdm gtk introspection -kde -qt4" >> /etc/portage/package.use
-echo "sys-auth/consolekit policykit" >> /etc/portage/package.use
-mv ./package.accept_keywords /etc/portage/ #Used to update Mate to 1.8
 echo "Would you like to view and edit the make.conf before compiling the gui related libraries? y/n \c"
 read make
 if [ "$make" == "y" ] || [ "$make" == "yes" ]; then
