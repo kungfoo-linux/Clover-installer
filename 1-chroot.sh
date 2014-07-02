@@ -16,7 +16,7 @@ git checkout funtoo.org
 emerge --sync
 cd ../..
 
-echo "USE=\"alsa gdu git gtk introspection X -branding -mono -gnome -kde -qt3 -qt4\"" >> /etc/portage/make.conf
+echo "USE=\"alsa gdu git introspection X -branding -mono -gnome -kde -qt3 -qt4\"" >> /etc/portage/make.conf
 echo "mate-base/mate -bluetooth -themes -extras" >> /etc/portage/package.use
 echo "x11-misc/lightdm gtk introspection -kde -qt4" >> /etc/portage/package.use
 echo "sys-auth/consolekit policykit" >> /etc/portage/package.use
@@ -78,7 +78,7 @@ else
 fi
 
 #Make.conf setup
-echo "What graphics driver is expected? nouveau/nvidia/radeon/fglrx/vbox/fbdev/vesa/vmware \c"
+echo "What graphics driver is expected? nouveau/nvidia/radeon/fglrx/vbox/fbdev/vesa/vmware/intel \c"
 read gpu
 echo "VIDEO_CARDS=\"$gpu\"" >> /etc/portage/make.conf
 echo "Would you like to view and edit the make.conf before compiling the gui related libraries? y/n \c"
