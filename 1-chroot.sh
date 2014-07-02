@@ -16,7 +16,7 @@ git checkout funtoo.org
 emerge --sync
 cd ../..
 
-echo "USE=\"alsa gdu git gtk introspection jpeg openal png sdl subversion svg x264 X -branding -mono -gnome -kde -qt3 -qt4\"" >> /etc/portage/make.conf
+echo "USE=\"alsa gdu git gtk introspection jpeg openal png sdl svg x264 X -branding -mono -gnome -kde -qt3 -qt4\"" >> /etc/portage/make.conf
 echo "mate-base/mate -bluetooth -themes -extras" >> /etc/portage/package.use
 echo "x11-misc/lightdm gtk introspection -kde -qt4" >> /etc/portage/package.use
 echo "sys-auth/consolekit policykit" >> /etc/portage/package.use
