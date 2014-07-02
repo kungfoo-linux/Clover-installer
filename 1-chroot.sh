@@ -1,15 +1,18 @@
 #!/bin/bash
 
-#portage=http://ftp.osuosl.org/pub/funtoo/funtoo-current/snapshots/portage-latest.tar.xz
+portage=http://ftp.osuosl.org/pub/funtoo/funtoo-current/snapshots/portage-latest.tar.xz
 
 #Startup
 export PS1="(chroot) $PS1"
 env-update
 
 #Portage setup
-#cd usr && wget -q $portage
-#tar xpvf portage-latest.tar.xz && rm portage-latest.tar.xz
-#cd /usr/portage && git checkout funtoo.org
+cd usr 
+wget -q $portage
+tar xpvf portage-latest.tar.xz
+rm portage-latest.tar.xz
+cd /usr/portage
+git checkout funtoo.org
 emerge --sync
 echo "Would you like to recompile the base system upto date? y/n: \c"
 read basecompile
