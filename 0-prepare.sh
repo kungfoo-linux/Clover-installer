@@ -68,6 +68,14 @@ tar xvjpf stage3*
 tar xvjpf current-stage3*
 echo "** Finished **"
 
+if [ "$arch" == "amd64-uclibc" ] || [ "$arch" == "amd64" ]; then
+echo "ACCEPT_KEYWORDS=\"~amd64\"" >> etc/portage/make.conf
+elif [ "$arch" == "i686-uclibc" ]; then
+echo "ACCEPT_KEYWORDS=\"~x86\"" >> etc/portage/make.conf
+else
+echo "ACCEPT_KEYWORDS=\"~x86\"" >> etc/portage/make.conf
+fi
+
 #Chroot
 echo "** Mounting **"
 mount -t proc none proc
