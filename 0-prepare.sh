@@ -2,6 +2,7 @@
 
 #########################
 maindir=/mnt/clover
+bootdir=/mnt/clover/boot
 stage332=http://ftp.osuosl.org/pub/funtoo/funtoo-current/x86-32bit/i686/stage3-latest.tar.xz
 stage364=http://ftp.osuosl.org/pub/funtoo/funtoo-current/x86-64bit/generic_64/stage3-latest.tar.xz
 stage3i7=http://ftp.osuosl.org/pub/funtoo/funtoo-current/x86-64bit/corei7/stage3-latest.tar.xz
@@ -38,8 +39,8 @@ swapon $swap
 echo "** Creating directories **"
 mkdir $maindir
 mount $root $maindir
-mkdir /mnt/clover/boot
-mount $boot /mnt/clover/boot
+mkdir $bootdir
+mount $boot $bootdir
 echo "** Finished **"
 
 #Edit
@@ -67,9 +68,9 @@ echo "** Finished **"
 
 #Chroot
 echo "** Mounting **"
-mount --bind /dev dev/
-mount --bind /sys sys/
-mount --bind /proc proc/
+mount -t proc none proc
+mount --rbind /sys sys
+mount --rbind /dev dev
 cp -L /etc/resolv.conf etc/
 echo "** Finished **"
 clear
@@ -78,5 +79,6 @@ chroot $maindir /bin/bash
 
 #Unmount
 echo "** Unmounting **"
-umount /mnt/clover/{proc,sys,dev,boot} /mnt/clover
+cd /mnt
+umount -l clover
 echo "** Finished **"
