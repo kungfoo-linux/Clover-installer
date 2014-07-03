@@ -36,7 +36,7 @@ ln -sf /usr/share/zoneinfo/$tz /etc/localtime
 #Fstab
 echo "Press enter to edit your fstab.. "
 read cont
-nano /etc/fstab
+nano -w /etc/fstab
 
 #Hostname
 echo "What will your hostname be? \c"
