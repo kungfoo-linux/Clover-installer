@@ -14,9 +14,9 @@ emerge --oneshot portage
 emerge --sync
 
 echo "USE=\"alsa gdu git gtk introspection X -branding -mono -gnome -kde -qt3 -qt4\"" >> /etc/portage/make.conf
-echo "mate-base/mate -bluetooth -themes -extras" >> /etc/portage/package.use
-echo "x11-misc/lightdm gtk introspection -kde -qt4" >> /etc/portage/package.use
-echo "sys-auth/consolekit policykit" >> /etc/portage/package.use
+echo "mate-base/mate -bluetooth -themes -extras" >> /etc/portage/package.use/clover
+echo "x11-misc/lightdm gtk introspection -kde -qt4" >> /etc/portage/package.use/clover
+echo "sys-auth/consolekit policykit" >> /etc/portage/package.use/clover
 mv ./package.accept_keywords /etc/portage/ #Used to update Mate to 1.8
 
 echo "Would you like to recompile the base system upto date? y/n: \c"
