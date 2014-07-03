@@ -1,18 +1,24 @@
 #!/bin/bash
 
+portage=http://ftp.osuosl.org/pub/funtoo/funtoo-current/snapshots/portage-latest.tar.xz
+
 #Startup
 export PS1="(chroot) $PS1"
 env-update
 
+#Portage setup
 echo "SYNC=\"rsync://rsync.au.gentoo.org/gentoo-portage\"" >> /etc/portage/make.conf
 echo "GENTOO_MIRRORS=\"ftp://ftp.iinet.com.au/linux/Gentoo ftp://ftp.swin.edu.au/gentoo\"" >> /etc/portage/make.conf
 emerge-webrsync
 emerge --oneshot portage
 emerge --sync
-emerge layman
-layman -L
-layman -a funtoo-overlay
-echo "source /var/lib/layman/make.conf" >> /etc/portage/make.conf
+
+echo "USE=\"alsa gdu git gtk introspection X -branding -mono -gnome -kde -qt3 -qt4\"" >> /etc/portage/make.conf
+echo "mate-base/mate -bluetooth -themes -extras" >> /etc/portage/package.use
+echo "x11-misc/lightdm gtk introspection -kde -qt4" >> /etc/portage/package.use
+echo "sys-auth/consolekit policykit" >> /etc/portage/package.use
+mv ./package.accept_keywords /etc/portage/ #Used to update Mate to 1.8
+
 echo "Would you like to recompile the base system upto date? y/n: \c"
 read basecompile
 if [ "$basecompile" == "y" ] || [ "$basecompile" == "yes" ]; then
@@ -27,7 +33,7 @@ echo "$tz" > /etc/timezone
 #Fstab
 echo "Press enter to edit your fstab.. "
 read cont
-nano /etc/fstab
+nano -w /etc/fstab
 
 #Hostname
 echo "What will your hostname be? \c"
@@ -53,10 +59,9 @@ genkernel all
 echo "** Completed **"
 
 #Boot
-emerge -av sys-boot/boot-update
-grub-install --no-floppy /dev/sda
-mv /boot.conf /etc/boot.conf
-boot-update
+emerge sys-boot/grub:2 sys-boot/os-prober sys-fs/ntfs3g
+grub2-install /dev/sda
+grub2-mkconfig -o /boot/grub/grub.cfg
 
 #Network
 echo "Are you using wifi or wired connection? wifi/wired \c"
@@ -69,14 +74,9 @@ else
 fi
 
 #Make.conf setup
-echo "What graphics driver is expected? nouveau/nvidia/radeon/fglrx/vbox/fbdev/vesa/vmware \c"
+echo "What graphics driver is expected? nouveau/nvidia/radeon/fglrx/vbox/fbdev/vesa/vmware/intel \c"
 read gpu
 echo "VIDEO_CARDS=\"$gpu\"" >> /etc/portage/make.conf
-echo "USE=\"alsa gdu git gtk introspection jpeg openal png sdl subversion svg x264 X -branding -mono -gnome -kde -qt3 -qt4\"" >> /etc/portage/make.conf
-echo "mate-base/mate -bluetooth -themes -extras" >> /etc/portage/package.use
-echo "x11-misc/lightdm gtk introspection -kde -qt4" >> /etc/portage/package.use
-echo "sys-auth/consolekit policykit" >> /etc/portage/package.use
-mv ./package.accept_keywords /etc/portage/ #Used to update Mate to 1.8
 echo "Would you like to view and edit the make.conf before compiling the gui related libraries? y/n \c"
 read make
 if [ "$make" == "y" ] || [ "$make" == "yes" ]; then
