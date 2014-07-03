@@ -13,7 +13,7 @@ emerge-webrsync
 emerge --oneshot portage
 emerge --sync
 
-echo "USE=\"alsa gdu git gtk introspection X -branding -mono -gnome -kde -qt3 -qt4\"" >> /etc/portage/make.conf
+echo "USE=\"alsa dbus gdu git gtk gudev introspection X -branding -mono -gnome -kde -qt3 -qt4\"" >> /etc/portage/make.conf
 echo "mate-base/mate -bluetooth -themes -extras" >> /etc/portage/package.use/clover
 echo "x11-misc/lightdm gtk introspection -kde -qt4" >> /etc/portage/package.use/clover
 echo "sys-auth/consolekit policykit" >> /etc/portage/package.use/clover
